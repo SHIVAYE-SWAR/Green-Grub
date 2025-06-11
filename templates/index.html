@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenGrub: Smart Produce System</title>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login card">
+        <h1 class="brand-name">Green Grub</h1>
+        <p class="subtitle">Smart Produce System - Check Your Grub's Freshness</p>
+        
+        <h2>Capture and Upload Photo</h2>
+        <video id="video" width="320" height="240" autoplay></video><br>
+        <button onclick="capturePhoto()">Capture</button>       
+        <canvas id="canvas" width="320" height="240" style="display:none;"></canvas> 
+
+        <div class="upload-container">  
+            <form id="upload-form" onsubmit="handleFileUpload(event)"> 
+                <input type="file" name="file" accept="image/*" class="file-input" id="file-input"      ### File input for image upload
+                       title="Choose an image of a fruit">
+                <button type="submit" class="btn btn-primary btn-block">Analyze Freshness</button>
+            </form>
+        </div>
+        
+        <div class="supported-fruits">
+            <p>Currently Supported Produce:</p>
+            <ul>
+                <li>🍎 Apple</li>
+                <li>🍌 Banana</li>
+                <li>🍊 Orange</li>
+                <li>🥬 Okra</li>
+                <li>🥒 Cucumber</li>
+                <li>🍅 Tomato</li>
+                <li>🥔 Potato</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const video = document.getElementById('video');  // Video element to display webcam feed
+        const canvas = document.getElementById('canvas'); // Canvas element to draw captured photo
+        const context = canvas.getContext('2d'); // 2D context for drawing on canvas
+    
+        // Access camera
+        navigator.mediaDevices.getUserMedia({ video: true })  // Request access to webcam
+          .then(stream => video.srcObject = stream)        // Set video source to stream
+          .catch(err => console.error("Camera error: ", err)); // Log error if camera access fails
+    
+        function capturePhoto() {  // Function to capture photo from webcam
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);  // Draw video frame on canvas
+            const imageData = canvas.toDataURL('image/png'); // Convert canvas to image data URL
+            
+            fetch('/upload', {  // Send image data to server
+                method: 'POST',     // POST request to upload endpoint
+                headers: {
+                    'Content-Type': 'application/json',     // Set content type to JSON
+                    'Accept': 'text/html'     // Expect HTML response
+                },
+                body: JSON.stringify({ file: imageData })  // Send image data as JSON
+            })
+            .then(response => response.text())  // Parse response as text
+            .then(html => {   // Update document with response HTML
+                document.open();   // Open document for writing
+                document.write(html); // Write response HTML to document
+                document.close();  // Close document
+            })
+            .catch(err => { // Handle any errors during upload
+                console.error("Upload error:", err); // Log error to console
+                alert("Error uploading image. Please try again."); // Alert user of error
+            });
+        }
+
+        function handleFileUpload(event) {     // Function to handle file upload from input
+            event.preventDefault();      // Prevent default form submission behavior
+            
+            const fileInput = document.getElementById('file-input');    // Get file input element
+            const file = fileInput.files[0]; // Get the first file from input
+            
+            if (!file) { // Check if a file is selected
+                alert('Please select a file first'); // Alert user to select a file
+                return;
+            }
+
+            const reader = new FileReader(); // Create a FileReader to read the file
+            reader.onload = function(e) { // When file is loaded
+                const imageData = e.target.result; // Get the data URL of the image
+                
+                fetch('/upload', { // Send image data to server
+                    method: 'POST', // POST request to upload endpoint
+                    headers: { 
+                        'Content-Type': 'application/json',     // Set content type to JSON
+                        'Accept': 'text/html'       // Expect HTML response
+                    },
+                    body: JSON.stringify({ file: imageData })  // Send image data as JSON
+                })
+                .then(response => response.text())          // Parse response as text
+                .then(html => {        // Update document with response HTML
+                    document.open();   // Open document for writing
+                    document.write(html);   // Write response HTML to document
+                    document.close();        // Close document
+                })
+                .catch(err => {
+                    console.error("Upload error:", err);
+                    alert("Error uploading image. Please try again.");
+                });
+            };
+            reader.readAsDataURL(file);   // Read the file as a data URL
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
+    <script>
+        $(document).ready(function() {
+            $('input[type="file"]').change(function() {
+                var input = this;
+                var isValid = true;
+                
+                for (var i = 0; i < input.files.length; i++) {
+                    var ext = input.files[i].name.split('.').pop().toLowerCase();
+                    if (!['jpg', 'jpeg', 'png'].includes(ext)) {
+                        isValid = false;
+                        break;
+                    }
+                }
+                
+                if (!isValid) {
+                    alert('Please upload only JPG or PNG images.');
+                    $(this).val('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

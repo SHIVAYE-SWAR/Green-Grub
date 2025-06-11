@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* { 
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { 
+    width: 100%; 
+    height: 100%;
+}
+
+body { 
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    color: #2c3e50;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(27, 94, 32, 0.9)),
+                url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1920') center/cover fixed;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+}
+
+.login { 
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.brand-name {
+    color: #2e7d32;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    margin-bottom: 2rem;
+}
+
+h1, h3 {
+    color: #2e7d32;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    background: #2e7d32;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.btn:hover {
+    background: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: #2e7d32;
+}
+
+.btn-block {
+    width: 100%;
+    max-width: 300px;
+    margin: 15px auto;
+}
+
+img {
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.result-text {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.suggestion-section {
+    background: #f1f8e9;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 25px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #2e7d32;
+}
+
+.suggestion-section h3 {
+    color: #2e7d32;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.suggestion-section p {
+    color: #37474f;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 20px;
+    margin: 15px 0;
+    border: 3px dashed #2e7d32;
+    border-radius: 12px;
+    background: #f1f8e9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="file"]:hover {
+    border-color: #1b5e20;
+    background: #e8f5e9;
+}
+
+.upload-container {
+    margin: 25px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.prediction-result {
+    font-weight: 500;
+    color: #2c3e50;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f1f8e9;
+    border-radius: 12px;
+    border-left: 5px solid #2e7d32;
+}
+
+.prediction-result h3 {
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.prediction-result p {
+    font-size: 1.2rem;
+    color: #37474f;
+}
+
+.supported-fruits {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f1f8e9;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.supported-fruits p {
+    color: #2e7d32;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.supported-fruits ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 0 10px;
+}
+
+.supported-fruits li {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    color: #2c3e50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.supported-fruits li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
